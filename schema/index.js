@@ -39,9 +39,8 @@ const RootQuery = new GraphQLObjectType({
         user: {
             type: UserType,
             args: { id: { type: GraphQLString } },
-            resolve: function(parentValue, args) {
-                return 
-                    axios
+            resolve(parentValue, args) {
+                return axios
                     .get(`http://localhost:3000/users/${args.id}`)
                     .then(response => {
                         console.log('got resource', response)

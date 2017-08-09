@@ -5,6 +5,8 @@
 */
 const graphql   = require('graphql')
 const _         = require('lodash')
+const axios     = require('axios')
+
 /*
 ##################################
  *  initialize graphql
@@ -16,17 +18,6 @@ const {
     GraphQLInt,
     GraphQLSchema,
 } = graphql;
-
-/*
-##################################
- -  hardcode users
-##################################
-*/
-const users = [
-    { id: '01', firstName: 'Tomas', age: 22, },
-    { id: '02', firstName: 'Caitlin', age: 38, },
-    { id: '03', firstName: 'Maire', age: 43, },
-]
 
 /*
 ##################################
@@ -49,7 +40,13 @@ const RootQuery = new GraphQLObjectType({
             type: UserType,
             args: { id: { type: GraphQLString } },
             resolve: function(parentValue, args) {
-                return _.find( users, { id: args.id } )
+                return 
+                    axios
+                    .get(`http://localhost:3000/users/${args.id}`)
+                    .then(response => {
+                        console.log('got resource', response)
+                        return response.data
+                    })
             },
         },
     },

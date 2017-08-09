@@ -1,3 +1,6 @@
+// statics
+const PORT_NUMBER = 4000;
+
 // import packaged dependencies
 const expressGraphQL    = require('express-graphql')
 
@@ -16,6 +19,6 @@ app.use('/graphql', expressGraphQL({
 }))
 
 // start listening for server requests
-app.listen(4000, () => {
-    console.log('express.js server is listening...')
+app.listen(PORT_NUMBER, () => {
+    console.log(`express.js server is listening on port ${PORT_NUMBER}...`)
 })
